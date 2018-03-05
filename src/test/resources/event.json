@@ -1,0 +1,8 @@
+{
+  "uuid":"zoey@hz.com",
+  "type":"perf",
+  "details":{
+    "CPU":50,
+    "memory":30
+  }
+}
