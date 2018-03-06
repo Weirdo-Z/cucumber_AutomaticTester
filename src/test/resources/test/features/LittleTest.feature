@@ -7,8 +7,8 @@ Feature:
     #hours that you expected to run (only execute once if you don't fill the number)
     Given expected run hours ""
 
-  Scenario: simple test with trustStore to visit https
+  Scenario: simple test with trustStore to visit https by json file
 
-    Then send event "event.json"
+    Then send event "event.json" by json file
 
     Then check status "200"

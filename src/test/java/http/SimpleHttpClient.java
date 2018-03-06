@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * http请求
+ * http
  * Created by Baxter on 2015/4/28.
  */
 public class SimpleHttpClient {
@@ -120,19 +120,19 @@ public class SimpleHttpClient {
         return result;
     }
 
-    public String doPost(String xml,String contentType, String charset) {
+    public String doPost(String content,String contentType, String charset) {
         String result = "";
         HttpClient httpClient = new HttpClient();
         PostMethod post = new PostMethod(url);
         post.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(this.retryTimes, this.isRetry));
         try {
-            post.setRequestEntity(new StringRequestEntity(xml, contentType, charset));
-            log.warn("before{}", xml);
+            post.setRequestEntity(new StringRequestEntity(content, contentType, charset));
+            log.warn("before{}", content);
             int statusCode = httpClient.executeMethod(post);
             if (statusCode == HttpStatus.SC_OK) {
                 result = post.getResponseBodyAsString();
             }
-            log.warn("after{}\t{}", xml, result);
+            log.warn("after{}\t{}", content, result);
         } catch (Exception e) {
             log.error("", e);
         }finally {
@@ -165,9 +165,9 @@ public class SimpleHttpClient {
             hcfg.setHost(uri);
             client.setHostConfiguration(hcfg);
             setProxy(client, host, port);
-            // ������֤
+
             client.getParams().setAuthenticationPreemptive(true);
-            // GET����ʽ
+
             HttpMethod method = new GetMethod(url);
             method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(this.retryTimes, this.isRetry));
             client.executeMethod(method);
@@ -193,15 +193,12 @@ public class SimpleHttpClient {
             client.getParams().setAuthenticationPreemptive(true);
             method = new PostMethod(url);
             method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(this.retryTimes, this.isRetry));
-            //��Ӳ���
             method.setRequestEntity(new StringRequestEntity(data, "xml/text", charset));
             client.executeMethod(method);
-            // ������ص���Ϣ
             return method.getResponseBodyAsString();
         } catch (Exception e) {
             log.error("", e);
         } finally {
-            // �ͷ�����
             if(method!=null)
                 method.releaseConnection();
         }
@@ -211,7 +208,6 @@ public class SimpleHttpClient {
 
 
     private void setProxy(HttpClient client, String host, int port) {
-        // ���ô���
         client.getHostConfiguration().setProxy(host, port);
 
     }

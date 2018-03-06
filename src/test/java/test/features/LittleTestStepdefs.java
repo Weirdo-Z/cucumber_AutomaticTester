@@ -39,20 +39,20 @@ public class LittleTestStepdefs {
         }
     }
 
-    @Then("^send event \"([^\"]*)\"$")
+    @Then("^send event \"([^\"]*)\" by json file$")
     public void sendEvent(String arg0) throws Throwable {
         File file = new File(Thread.currentThread().getContextClassLoader().getResource(arg0).toURI());
         JSONObject json = Utils.toJSONObject(file);
-        this.result = new SimpleHttpClient(url).doPost(json.toJSONString(), "text/json", "utf-8");
+        result = new SimpleHttpClient(url).doPost(json.toJSONString(), "text/json", "utf-8");
     }
 
     @Then("^check response \"([^\"]*)\"$")
     public void checkResponse(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
     }
 
     @Then("^check status \"([^\"]*)\"$")
     public void checkStatus(String arg0) throws Throwable {
+        Assert.assertFalse("".equals(result));
     }
 
 }
